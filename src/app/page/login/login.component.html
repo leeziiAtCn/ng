@@ -1,35 +1,44 @@
-<div class="login-componentss">
+<div class="login-component">
 
   <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="_submitForm()">
     <div nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.userName">
-        <nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.userName" nzHasFeedback>
+        <nz-input formControlName="userName" [nzPlaceHolder]="'请输入您的账户名'" [nzSize]="'large'">
           <ng-template #prefix>
             <i class="anticon anticon-user"></i>
           </ng-template>
         </nz-input>
-        <div nz-form-explain *ngIf="validateForm.controls.userName.dirty&&validateForm.controls.userName.hasError('required')">Please input your username!</div>
+        <div nz-form-explain
+             *ngIf="validateForm.controls.userName.dirty&&validateForm.controls.userName.hasError('required')">
+          请输入您的账户名
+        </div>
+        <div nz-form-explain
+             *ngIf="validateForm.controls.userName.dirty&&validateForm.controls.userName.hasError('minlength')">
+          账户名最少5个字符
+        </div>
+        <div nz-form-explain
+             *ngIf="validateForm.controls.userName.dirty&&validateForm.controls.userName.getError('error')==='reg'">
+          账户名不能包含除 '@','_'以外字符
+        </div>
       </div>
     </div>
     <div nz-form-item>
-      <div nz-form-control [nzValidateStatus]="validateForm.controls.password">
-        <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'Password'" [nzSize]="'large'">
+      <div nz-form-control [nzValidateStatus]="validateForm.controls.password" nzHasFeedback>
+        <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'请输入您的密码'" [nzSize]="'large'">
           <ng-template #prefix>
             <i class="anticon anticon-lock"></i>
           </ng-template>
         </nz-input>
-        <div nz-form-explain *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">Please input your Password!</div>
+        <div nz-form-explain
+             *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">
+          请输入您的密码
+        </div>
       </div>
     </div>
     <div nz-form-item>
       <div nz-form-control>
-        <label nz-checkbox formControlName="remember">
-          <span>Remember me</span>
-        </label>
-        <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
-        <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
-        Or
-        <a href="">register now!</a>
+
+        <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">登录</button>
       </div>
     </div>
   </form>
