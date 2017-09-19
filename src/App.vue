@@ -11,8 +11,11 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     #app {
         color: red;
+    }
+    .a {
+        background: red;
     }
 </style>
