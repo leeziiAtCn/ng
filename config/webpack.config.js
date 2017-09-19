@@ -6,13 +6,20 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    app: ['babel-polyfill', './src/main.js']
+  },
   output: {
     filename: 'static/javascript/[name].[hash].js',
     path: path.resolve(__dirname, '../dist')
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -54,16 +61,15 @@ module.exports = {
       title: 'leezii-template',
       template: './index.html'
     }),
-    new webpack.optimize.DedupePlugin(),
-    // new webpack.optimize.UglifyJsPlugin(
-    //   {
-    //     compress: {
-    //       warnings: false
-    //     },
-    //     sourceMap: false
-    //   }
-    // ),
-    // new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(
+      {
+        compress: {
+          warnings: false
+        },
+        sourceMap: false
+      }
+    ),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15})
   ]
 }
